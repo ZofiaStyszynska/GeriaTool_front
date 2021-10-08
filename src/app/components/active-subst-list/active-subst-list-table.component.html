@@ -1,0 +1,19 @@
+<table class="table">
+  <thead class="table-dark">
+  <tr>
+    <th>Nazwa substancji aktywnej</th>
+    <th>Kod ATC</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let tempSubstance of activeSubstances">
+    <td>{{tempSubstance.name}}</td>
+    <td>{{tempSubstance.atcCode}}</td>
+  </tr>
+
+  </tbody>
+
+
+</table>
+
+
