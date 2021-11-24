@@ -7,14 +7,24 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { ActiveSubstListComponent } from './components/active-subst-list/active-subst-list.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ActiveSubstanceService} from "./services/active-substance.service";
+import {RouterModule, Routes} from "@angular/router";
+import { SearchComponent } from './components/search/search.component';
+
+const routes: Routes = [
+  {path: 'search/:searchCode', component: ActiveSubstListComponent},
+  {path: 'active-substances', component: ActiveSubstListComponent},
+  {path: '', redirectTo: '/active-substances', pathMatch:'full'}
+]
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    ActiveSubstListComponent
+    ActiveSubstListComponent,
+    SearchComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     NgbModule,
     HttpClientModule

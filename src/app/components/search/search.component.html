@@ -1,0 +1,10 @@
+<div class="card-header">
+  <input #myInput type="text"
+         placeholder="ATC code"
+         class="input-group"
+         (keyup.enter)="doSearch(myInput.value)">
+  <button (click)="doSearch(myInput.value)" class="au-btn-submit">
+    Search
+  </button>
+
+</div>
