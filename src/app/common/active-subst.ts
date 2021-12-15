@@ -1,11 +1,8 @@
-export class ActiveSubst {
+export interface ActiveSubst {
 
-
+  id: number;
   name: string;
   atcCode: string;
 
-  constructor(name: string, atcCode: string) {
-    this.name = name;
-    this.atcCode = atcCode;
-  }
+
 }
