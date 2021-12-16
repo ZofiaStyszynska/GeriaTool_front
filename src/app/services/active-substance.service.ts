@@ -23,11 +23,11 @@ export class ActiveSubstanceService {
   }
 
   public getActiveSubstBySearchCode(searchCode:string): Observable<ActiveSubst[]> {
-    return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}/searchcode/${searchCode}`);
+    return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}/search/${searchCode}`);
   }
 
-  public getActiveSubstByName(name:string): Observable<ActiveSubst> {
-    return this.httpClient.get<ActiveSubst>(`${this.baseUrl}/name/${name}`);
+  public getActiveSubstByName(name:string): Observable<ActiveSubst[]> {
+    return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}/name/${name}`);
   }
 
   public addActiveSubst(activeSubst:ActiveSubst): Observable<ActiveSubst> {

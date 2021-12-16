@@ -12,7 +12,7 @@ import { SearchComponent } from './components/search/search.component';
 const routes: Routes = [
   {path: 'search/:searchCode', component: ActiveSubstListComponent},
   {path: 'activesubstance', component: ActiveSubstListComponent},
-  {path: '', redirectTo: '/active-substances', pathMatch:'full'}
+  {path: '', redirectTo: '/activesubstance', pathMatch:'full'}
 ]
 
 @NgModule({
