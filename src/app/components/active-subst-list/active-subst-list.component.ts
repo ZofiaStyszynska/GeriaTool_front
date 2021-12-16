@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActiveSubstanceService} from "../../services/active-substance.service";
 import {ActiveSubst} from "../../common/active-subst";
 import {ActivatedRoute} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-active-subst-list',
@@ -10,10 +11,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ActiveSubstListComponent implements OnInit {
 
-  // @ts-ignore
-  activeSubstances: ActiveSubst[];
-  // @ts-ignore
-  searchMode: boolean;
+
+  public activeSubstances: ActiveSubst[] = [];
 
   constructor(private activeSubstanceService: ActiveSubstanceService,
               private route: ActivatedRoute) {
@@ -31,14 +30,17 @@ export class ActiveSubstListComponent implements OnInit {
     if (this.searchMode) {
       this.handleSearchProducts();
     } else {
-      this.handleListActiveSubst()
+      this.handleGetAllActiveSubst()
     }
   }
 
-  handleListActiveSubst() {
-    this.activeSubstanceService.getActiveSubstList().subscribe(
-      data => {
-        this.activeSubstances = data;
+  handleGetAllActiveSubst() {
+    this.activeSubstanceService.getAllActiveSubst().subscribe(
+      (response) => {
+        this.activeSubstances = response;
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
       }
     )
 
