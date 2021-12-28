@@ -13,8 +13,8 @@ export class ActiveSubstListComponent implements OnInit {
 
 
   public activeSubstances: ActiveSubst[] | undefined;
-  public routes:ActivatedRoute;
-  constructor(private activeSubstanceService: ActiveSubstanceService) {
+  public;
+  constructor(private activeSubstanceService: ActiveSubstanceService, private routes:ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class ActiveSubstListComponent implements OnInit {
     )
 
   }
-  getActiveSubstBySearchCode:void{
+  getActiveSubstBySearchCode:void {
 
 
 }
