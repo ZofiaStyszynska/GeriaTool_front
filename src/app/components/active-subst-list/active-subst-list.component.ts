@@ -13,31 +13,22 @@ export class ActiveSubstListComponent implements OnInit {
 
 
   public activeSubstances: ActiveSubst[] | undefined;
-  public searchMode: boolean = true;
 
-  constructor(private activeSubstanceService: ActiveSubstanceService, private route:ActivatedRoute) {
+  constructor(private activeSubstanceService: ActiveSubstanceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(()=>{
-      this.handleActiveSubstList();
-    })
-
-
-  }
-
-  handleActiveSubstList():void {
-    this.searchMode=this.route.snapshot.paramMap.has('searchCode');
-    if(this.searchMode) {
+    if (this.route.snapshot.paramMap.has('searchCode')) {
       this.getActiveSubstBySearchCode()
+    } else {
 
-    }else{
       this.getAllActiveSubsts()
     }
 
   }
 
-  getAllActiveSubsts():void {
+
+  getAllActiveSubsts(): void {
     this.activeSubstanceService.getAllActiveSubst().subscribe(
       (response) => {
         this.activeSubstances = response;
@@ -57,7 +48,6 @@ export class ActiveSubstListComponent implements OnInit {
       }
     )
   }
-
 
 
 }
