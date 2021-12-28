@@ -12,29 +12,19 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class ActiveSubstListComponent implements OnInit {
 
 
-  public activeSubstances: ActiveSubst[] = [];
+  public activeSubstances: ActiveSubst[] | undefined;
 
-  constructor(private activeSubstanceService: ActiveSubstanceService,
-              private route: ActivatedRoute) {
+  constructor(private activeSubstanceService: ActiveSubstanceService) {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(() => {
-      this.listActiveSubstances()
-    });
+    this.getAllActiveSubsts()
 
   }
 
-  listActiveSubstances() {
-    this.searchMode = this.route.snapshot.paramMap.has('searchCode')
-    if (this.searchMode) {
-      this.handleSearchProducts();
-    } else {
-      this.handleGetAllActiveSubst()
-    }
-  }
 
-  handleGetAllActiveSubst() {
+
+  getAllActiveSubsts():void {
     this.activeSubstanceService.getAllActiveSubst().subscribe(
       (response) => {
         this.activeSubstances = response;
@@ -46,13 +36,5 @@ export class ActiveSubstListComponent implements OnInit {
 
   }
 
-  handleSearchProducts() {
-    const theSearchCode: string | null = this.route.snapshot.paramMap.get('searchCode');
-    this.activeSubstanceService.searchActiveSubst(theSearchCode).subscribe(
-      data => {
-        this.activeSubstances = data;
-      }
-    );
 
-  }
 }
