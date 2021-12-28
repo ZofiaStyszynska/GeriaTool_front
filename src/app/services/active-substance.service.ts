@@ -22,7 +22,7 @@ export class ActiveSubstanceService {
     return this.httpClient.get<ActiveSubst>(`${this.baseUrl}/id/${id}`);
   }
 
-  public getActiveSubstBySearchCode(searchCode:string): Observable<ActiveSubst[]> {
+  public getActiveSubstBySearchCode(searchCode: string | null): Observable<ActiveSubst[]> {
     return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}/search/${searchCode}`);
   }
 
