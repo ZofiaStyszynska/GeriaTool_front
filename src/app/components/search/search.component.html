@@ -3,7 +3,7 @@
          placeholder="ATC code"
          class="input-group"
          (keyup.enter)="doSearch(myInput.value)">
-  <button (click)="doSearch(myInput.value)" class="au-btn-submit">
+  <button (click)="doSearch(myInput.value.toUpperCase())" class="au-btn-submit">
     Search
   </button>
 
