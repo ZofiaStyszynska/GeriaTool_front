@@ -13,7 +13,7 @@ export class ActiveSubstListComponent implements OnInit {
 
 
   public activeSubstances: ActiveSubst[] | undefined;
-
+  public routes:ActivatedRoute;
   constructor(private activeSubstanceService: ActiveSubstanceService) {
   }
 
@@ -35,6 +35,7 @@ export class ActiveSubstListComponent implements OnInit {
     )
 
   }
+  getActiveSubstBySearchCode:void{
 
 
 }
