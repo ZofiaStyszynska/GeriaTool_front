@@ -42,16 +42,17 @@ export class ActiveSubstListComponent implements OnInit {
       (response) => {
         this.activeSubstances = response;
       },
-      (error:HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
         alert(error.message);
       }
     )
 
   }
-  getActiveSubstBySearchCode():void{
-    const searchCode: string | null= this.route.snapshot.paramMap.get('searchCode');
+
+  getActiveSubstBySearchCode(): void {
+    const searchCode: string | null = this.route.snapshot.paramMap.get('searchCode');
     this.activeSubstanceService.getActiveSubstBySearchCode(searchCode).subscribe(
-      (response)=>{
+      (response) => {
         this.activeSubstances = response;
       }
     )
