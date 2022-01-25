@@ -11,6 +11,7 @@ import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   {path: 'activesubstance/search/:searchCode', component: ActiveSubstListComponent},
+  {path: 'activesubstance/name/:name', component:ActiveSubstListComponent},
   {path: 'activesubstance', component: ActiveSubstListComponent},
   {path: '', redirectTo: '/activesubstance', pathMatch:'full'}
 ]

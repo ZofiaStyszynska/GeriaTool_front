@@ -1,6 +1,6 @@
-<div class="card-header">
+<div class="card-header" >
   <input #myInput type="text"
-         placeholder="ATC code"
+         placeholder="ATC code or active substance name"
          class="input-group"
          (keyup.enter)="doSearch(myInput.value)">
   <button (click)="doSearch(myInput.value.toUpperCase())" class="au-btn-submit">

@@ -18,12 +18,18 @@ export class ActiveSubstListComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.route.paramMap.subscribe(() => {
+
     if (this.route.snapshot.paramMap.has('searchCode')) {
-      this.getActiveSubstBySearchCode()
-    } else {
+      this.getActiveSubstBySearchCode();
+    } else if(this.route.snapshot.paramMap.has('name')) {
+      this.getActiveSubstByName();
+    }else{
 
       this.getAllActiveSubsts()
     }
+    });
 
   }
 
@@ -44,6 +50,14 @@ export class ActiveSubstListComponent implements OnInit {
     const searchCode: string | null = this.route.snapshot.paramMap.get('searchCode');
     this.activeSubstanceService.getActiveSubstBySearchCode(searchCode).subscribe(
       (response) => {
+        this.activeSubstances = response;
+      }
+    )
+  }
+  getActiveSubstByName():void{
+    const name :string | null = this.route.snapshot.paramMap.get('name');
+    this.activeSubstanceService.getActiveSubstByName(name).subscribe(
+      (response)=>{
         this.activeSubstances = response;
       }
     )

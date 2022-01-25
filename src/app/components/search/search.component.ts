@@ -14,8 +14,17 @@ export class SearchComponent implements OnInit {
   }
 
   doSearch(searchCode:string){
+    let name:string ='';
     console.log(`searchcode=${searchCode}`);
-    this.router.navigateByUrl(`activesubstance/search/${searchCode}`);
-  }
+    //checks if the input contains a number
+    if (/\d/.test(searchCode)) {
+      this.router.navigateByUrl(`activesubstance/search/${searchCode}`);
+    }else{
+      name = searchCode;
+      this.router.navigateByUrl(`activesubstance/name/${name}`)
+    }
+
+    }
+
 
 }

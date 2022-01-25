@@ -26,7 +26,7 @@ export class ActiveSubstanceService {
     return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}/search/${searchCode}`);
   }
 
-  public getActiveSubstByName(name:string): Observable<ActiveSubst[]> {
+  public getActiveSubstByName(name: string | null): Observable<ActiveSubst[]> {
     return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}/name/${name}`);
   }
 
