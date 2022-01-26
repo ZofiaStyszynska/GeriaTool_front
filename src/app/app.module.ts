@@ -8,6 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {ActiveSubstanceService} from "./services/active-substance.service";
 import {RouterModule, Routes} from "@angular/router";
 import { SearchComponent } from './components/search/search.component';
+import { AddActiveSubstComponent } from './components/add-active-subst/add-active-subst.component';
 
 const routes: Routes = [
   {path: 'activesubstance/search/:searchCode', component: ActiveSubstListComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ActiveSubstListComponent,
-    SearchComponent
+    SearchComponent,
+    AddActiveSubstComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

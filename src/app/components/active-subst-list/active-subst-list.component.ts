@@ -3,6 +3,7 @@ import {ActiveSubstanceService} from "../../services/active-substance.service";
 import {ActiveSubst} from "../../common/active-subst";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-active-subst-list',
@@ -18,17 +19,22 @@ export class ActiveSubstListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.handleSearchOptions();
 
+
+  }
+
+  handleSearchOptions(): void {
     this.route.paramMap.subscribe(() => {
 
-    if (this.route.snapshot.paramMap.has('searchCode')) {
-      this.getActiveSubstBySearchCode();
-    } else if(this.route.snapshot.paramMap.has('name')) {
-      this.getActiveSubstByName();
-    }else{
+      if (this.route.snapshot.paramMap.has('searchCode')) {
+        this.getActiveSubstBySearchCode();
+      } else if (this.route.snapshot.paramMap.has('name')) {
+        this.getActiveSubstByName();
+      } else {
 
-      this.getAllActiveSubsts()
-    }
+        this.getAllActiveSubsts()
+      }
     });
 
   }
@@ -54,14 +60,17 @@ export class ActiveSubstListComponent implements OnInit {
       }
     )
   }
-  getActiveSubstByName():void{
-    const name :string | null = this.route.snapshot.paramMap.get('name');
+
+  getActiveSubstByName(): void {
+    const name: string | null = this.route.snapshot.paramMap.get('name');
     this.activeSubstanceService.getActiveSubstByName(name).subscribe(
-      (response)=>{
+      (response) => {
         this.activeSubstances = response;
       }
     )
   }
+
+
 
 
 }
