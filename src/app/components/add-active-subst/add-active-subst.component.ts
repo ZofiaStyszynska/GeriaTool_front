@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ActiveSubstanceService} from "../../services/active-substance.service";
+import {ActiveSubst} from "../../common/active-subst";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-active-subst',
@@ -8,24 +12,49 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./add-active-subst.component.css']
 })
 export class AddActiveSubstComponent implements OnInit {
-  closeResult = '';
 
-  constructor(private modalService:NgbModal) { }
+
+  activeSubstance: ActiveSubst | undefined;
+
+
+  constructor(private modalService: NgbModal,
+              private activeSubstanceService: ActiveSubstanceService,
+              private router: Router,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
   }
 
-  onAddActiveSubstance(addForm:NgForm): void{
+  onAddActiveSubstance(addActiveSubstForm:NgForm) {
+    this.activeSubstanceService.addActiveSubst(addActiveSubstForm.value).subscribe(
+      (response) => {
+        console.log(response);
+        this.router.navigate(['activesubstance'])
+
+
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+
+
+      }
+    )
 
   }
+  saveActiveSubstance(){
+    this.activeSubstanceService.addActiveSubst(this.activeSubstance).subscribe(
+      (response)=>{
+        console.log(this.activeSubstance);
+        this.router.navigateByUrl('activesubstance');
+      }
+    )
+  }
+
   open(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    });
+   // this.router.navigate(['activesubstance/add']);
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
-
-
-
 
 
 }

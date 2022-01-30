@@ -9,11 +9,13 @@ import {ActiveSubstanceService} from "./services/active-substance.service";
 import {RouterModule, Routes} from "@angular/router";
 import { SearchComponent } from './components/search/search.component';
 import { AddActiveSubstComponent } from './components/add-active-subst/add-active-subst.component';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {path: 'activesubstance/search/:searchCode', component: ActiveSubstListComponent},
   {path: 'activesubstance/name/:name', component:ActiveSubstListComponent},
   {path: 'activesubstance', component: ActiveSubstListComponent},
+  {path: 'activesubstance/add', component: AddActiveSubstComponent},
   {path: '', redirectTo: '/activesubstance', pathMatch:'full'}
 ]
 
@@ -28,7 +30,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [ActiveSubstanceService],
   bootstrap: [AppComponent]

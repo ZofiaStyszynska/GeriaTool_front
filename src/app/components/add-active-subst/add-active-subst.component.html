@@ -1,30 +1,38 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">Wprowadź substancję aktywną</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form #addActiveSubstForm="ngForm" (ngSubmit)="onAddActiveSubstance(addActiveSubstForm)">
       <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-        <div class="input-group">
-          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-          </div>
-        </div>
+        <label for="active-subst-name" class="col-form-label">Nazwa</label>
+        <input type="text"
+               name="activeSubstance.name" ngModel required #activeSubstance.name="ngModel"
+               class="form-control"
+               id="active-subst-name"
+        >
+      </div>
+      <div class="form-group">
+        <label for="active-subst-atc-code" class="col-form-label">Kod ATC</label>
+        <input type="text" [(ngModel)]="activeSubstance && activeSubstance.atcCode"
+               class="form-control"
+               id="active-subst-atc-code"
+        >
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <button [disabled]="!addActiveSubstForm.form.valid" type="submit" class="btn btn-outline-dark"
+            (click)="modal.close('Save click')">Zapisz
+    </button>
   </div>
 </ng-template>
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+<button class="btn btn-outline-dark" (click)="open(content)">Dodaj substancję aktywną</button>
 
 <hr>
 
-<pre>{{ closeResult }}</pre>
+

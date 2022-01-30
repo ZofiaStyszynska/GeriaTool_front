@@ -30,7 +30,7 @@ export class ActiveSubstanceService {
     return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}/name/${name}`);
   }
 
-  public addActiveSubst(activeSubst:ActiveSubst): Observable<ActiveSubst> {
+  public addActiveSubst(activeSubst: ActiveSubst | undefined): Observable<ActiveSubst> {
     return this.httpClient.post<ActiveSubst>(`${this.baseUrl}/add`, activeSubst);
   }
 
