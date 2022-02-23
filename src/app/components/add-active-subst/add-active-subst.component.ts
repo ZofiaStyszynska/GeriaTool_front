@@ -26,7 +26,7 @@ export class AddActiveSubstComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAddActiveSubstance(addActiveSubstForm:NgForm) {
+  onAddActiveSubstance(addActiveSubstForm: NgForm) {
     this.activeSubstanceService.addActiveSubst(addActiveSubstForm.value).subscribe(
       (response) => {
         console.log(response);
@@ -42,17 +42,10 @@ export class AddActiveSubstComponent implements OnInit {
     )
 
   }
-  saveActiveSubstance(){
-    this.activeSubstanceService.addActiveSubst(this.activeSubstance).subscribe(
-      (response)=>{
-        console.log(this.activeSubstance);
-        this.router.navigateByUrl('activesubstance');
-      }
-    )
-  }
+
 
   open(content: any) {
-   // this.router.navigate(['activesubstance/add']);
+    // this.router.navigate(['activesubstance/add']);
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 

@@ -11,35 +11,35 @@ export class ActiveSubstanceService {
 
   private baseUrl = 'http://localhost:8080/activesubstance';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   public getAllActiveSubst(): Observable<ActiveSubst[]> {
-    return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}`);
+    return this.http.get<ActiveSubst[]>(`${this.baseUrl}`);
   }
 
   public getActiveSubstById(id:number): Observable<ActiveSubst> {
-    return this.httpClient.get<ActiveSubst>(`${this.baseUrl}/id/${id}`);
+    return this.http.get<ActiveSubst>(`${this.baseUrl}/id/${id}`);
   }
 
   public getActiveSubstBySearchCode(searchCode: string | null): Observable<ActiveSubst[]> {
-    return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}/search/${searchCode}`);
+    return this.http.get<ActiveSubst[]>(`${this.baseUrl}/search/${searchCode}`);
   }
 
   public getActiveSubstByName(name: string | null): Observable<ActiveSubst[]> {
-    return this.httpClient.get<ActiveSubst[]>(`${this.baseUrl}/name/${name}`);
+    return this.http.get<ActiveSubst[]>(`${this.baseUrl}/name/${name}`);
   }
 
   public addActiveSubst(activeSubst: ActiveSubst | undefined): Observable<ActiveSubst> {
-    return this.httpClient.post<ActiveSubst>(`${this.baseUrl}/add`, activeSubst);
+    return this.http.post<ActiveSubst>(`${this.baseUrl}/add`, activeSubst);
   }
 
   public updateActiveSubst(id:number, activeSubst:ActiveSubst): Observable<ActiveSubst> {
-    return this.httpClient.put<ActiveSubst>(`${this.baseUrl}/update/${id}`, activeSubst);
+    return this.http.put<ActiveSubst>(`${this.baseUrl}/update/${id}`, activeSubst);
   }
 
   public deleteActiveSubst(id:number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.baseUrl}/delete/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
 
 

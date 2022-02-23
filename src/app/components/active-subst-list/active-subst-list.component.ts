@@ -14,6 +14,8 @@ export class ActiveSubstListComponent implements OnInit {
 
 
   public activeSubstances: ActiveSubst[] | undefined;
+  public activeSubst: ActiveSubst | undefined;
+  public editActiveSubst: ActiveSubst | undefined;
 
   constructor(private activeSubstanceService: ActiveSubstanceService, private route: ActivatedRoute) {
   }
@@ -44,6 +46,8 @@ export class ActiveSubstListComponent implements OnInit {
     this.activeSubstanceService.getAllActiveSubst().subscribe(
       (response) => {
         this.activeSubstances = response;
+        response.sort((a:ActiveSubst,b)=>a.name.localeCompare(b.name)) //alphabetical order
+
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -66,6 +70,18 @@ export class ActiveSubstListComponent implements OnInit {
     this.activeSubstanceService.getActiveSubstByName(name).subscribe(
       (response) => {
         this.activeSubstances = response;
+      }
+    )
+  }
+  onEditActiveSubst(id:number, activeSubst:ActiveSubst): void{
+    this.editActiveSubst=activeSubst;
+    this.activeSubstanceService.updateActiveSubst(id,activeSubst).subscribe(
+      (response)=>{
+       this.activeSubst=response;
+       console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
       }
     )
   }
