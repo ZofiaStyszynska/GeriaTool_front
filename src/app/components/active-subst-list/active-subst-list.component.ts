@@ -4,6 +4,7 @@ import {ActiveSubst} from "../../common/active-subst";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-active-subst-list',
@@ -14,10 +15,12 @@ export class ActiveSubstListComponent implements OnInit {
 
 
   public activeSubstances: ActiveSubst[] | undefined;
-  public activeSubst: ActiveSubst | undefined;
+  //public activeSubst: ActiveSubst | undefined;
   public editActiveSubst: ActiveSubst | undefined;
 
-  constructor(private activeSubstanceService: ActiveSubstanceService, private route: ActivatedRoute) {
+  constructor(private activeSubstanceService: ActiveSubstanceService,
+              private route: ActivatedRoute,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -73,17 +76,20 @@ export class ActiveSubstListComponent implements OnInit {
       }
     )
   }
-  onEditActiveSubst(id:number, activeSubst:ActiveSubst): void{
+  onEditActiveSubst(activeSubst:ActiveSubst): void{
     this.editActiveSubst=activeSubst;
-    this.activeSubstanceService.updateActiveSubst(id,activeSubst).subscribe(
+    this.activeSubstanceService.updateActiveSubst(activeSubst).subscribe(
       (response)=>{
-       this.activeSubst=response;
+       this.getAllActiveSubsts();
        console.log(response);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     )
+  }
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
 

@@ -34,8 +34,8 @@ export class ActiveSubstanceService {
     return this.http.post<ActiveSubst>(`${this.baseUrl}/add`, activeSubst);
   }
 
-  public updateActiveSubst(id:number, activeSubst:ActiveSubst): Observable<ActiveSubst> {
-    return this.http.put<ActiveSubst>(`${this.baseUrl}/update/${id}`, activeSubst);
+  public updateActiveSubst(activeSubst:ActiveSubst): Observable<ActiveSubst> {
+    return this.http.put<ActiveSubst>(`${this.baseUrl}/update`, activeSubst);
   }
 
   public deleteActiveSubst(id:number): Observable<void> {
