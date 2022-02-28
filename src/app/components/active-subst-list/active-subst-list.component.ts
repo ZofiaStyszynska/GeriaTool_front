@@ -77,8 +77,7 @@ export class ActiveSubstListComponent implements OnInit {
     )
   }
   onEditActiveSubst(activeSubst:ActiveSubst): void{
-    this.editActiveSubst=activeSubst;
-    this.activeSubstanceService.updateActiveSubst(activeSubst).subscribe(
+      this.activeSubstanceService.updateActiveSubst(activeSubst).subscribe(
       (response)=>{
        this.getAllActiveSubsts();
        console.log(response);
@@ -86,9 +85,11 @@ export class ActiveSubstListComponent implements OnInit {
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
+
     )
   }
-  open(content: any) {
+  open(content: any, activeSubst:ActiveSubst) {
+    this.editActiveSubst=activeSubst;
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
