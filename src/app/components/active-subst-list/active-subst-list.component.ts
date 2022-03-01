@@ -15,8 +15,10 @@ export class ActiveSubstListComponent implements OnInit {
 
 
   public activeSubstances: ActiveSubst[] | undefined;
-  //public activeSubst: ActiveSubst | undefined;
+
   public editActiveSubst: ActiveSubst | undefined;
+  // @ts-ignore
+  public deleteActiveSubst: ActiveSubst;
 
   constructor(private activeSubstanceService: ActiveSubstanceService,
               private route: ActivatedRoute,
@@ -49,7 +51,7 @@ export class ActiveSubstListComponent implements OnInit {
     this.activeSubstanceService.getAllActiveSubst().subscribe(
       (response) => {
         this.activeSubstances = response;
-        response.sort((a:ActiveSubst,b)=>a.name.localeCompare(b.name)) //alphabetical order
+        response.sort((a: ActiveSubst, b) => a.name.localeCompare(b.name)) //alphabetical order
 
       },
       (error: HttpErrorResponse) => {
@@ -76,24 +78,41 @@ export class ActiveSubstListComponent implements OnInit {
       }
     )
   }
-  onEditActiveSubst(activeSubst:ActiveSubst): void{
-      this.activeSubstanceService.updateActiveSubst(activeSubst).subscribe(
-      (response)=>{
-       this.getAllActiveSubsts();
-       console.log(response);
+
+  onEditActiveSubst(activeSubst: ActiveSubst): void {
+    this.activeSubstanceService.updateActiveSubst(activeSubst).subscribe(
+      (response) => {
+        this.getAllActiveSubsts();
+        console.log(response);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
-
     )
   }
-  open(content: any, activeSubst:ActiveSubst) {
-    this.editActiveSubst=activeSubst;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+
+  onDeleteActiveSubst(activeSubstId: number): void {
+    this.activeSubstanceService.deleteActiveSubst(activeSubstId).subscribe(
+      (response) => {
+        this.getAllActiveSubsts();
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
   }
 
-
+  openModal(content: any, activeSubst: ActiveSubst, mode: string) {
+    if (mode === 'update') {
+      this.editActiveSubst = activeSubst;
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    }
+    if (mode === 'delete') {
+      this.deleteActiveSubst = activeSubst;
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'})
+    }
+  }
 
 
 }

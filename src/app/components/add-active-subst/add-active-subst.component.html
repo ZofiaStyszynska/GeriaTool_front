@@ -10,7 +10,7 @@
       <div class="form-group">
         <label for="active-subst-name" class="col-form-label">Nazwa</label>
         <input type="text"
-               [(ngModel)]="activeSubstance && activeSubstance.name"
+               [ngModel]="activeSubstance?.name"
                name="name"
                required
                class="form-control"
@@ -20,7 +20,7 @@
       <div class="form-group">
         <label for="active-subst-atc-code" class="col-form-label">Kod ATC</label>
         <input type="text"
-               [(ngModel)]="activeSubstance && activeSubstance.atcCode"
+               [ngModel]="activeSubstance?.atcCode"
                name="atcCode"
                required
                class="form-control"
