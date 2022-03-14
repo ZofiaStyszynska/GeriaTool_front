@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {ActiveSubst} from "../../common/active-subst";
 
 @Component({
   selector: 'app-search',
@@ -8,6 +9,7 @@ import {Router} from "@angular/router";
 })
 export class SearchComponent implements OnInit {
 
+  public activeSubstances: ActiveSubst[] | undefined;
   constructor(private router: Router) { }
 
   ngOnInit(){

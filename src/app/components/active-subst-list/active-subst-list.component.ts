@@ -17,8 +17,8 @@ export class ActiveSubstListComponent implements OnInit {
   public activeSubstances: ActiveSubst[] | undefined;
 
   public editActiveSubst: ActiveSubst | undefined;
-  // @ts-ignore
-  public deleteActiveSubst: ActiveSubst;
+
+  public deleteActiveSubst: ActiveSubst | null | undefined;
 
   constructor(private activeSubstanceService: ActiveSubstanceService,
               private route: ActivatedRoute,
