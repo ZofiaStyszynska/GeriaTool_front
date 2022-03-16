@@ -18,7 +18,8 @@ export class ActiveSubstListComponent implements OnInit {
 
   public editActiveSubst: ActiveSubst | undefined;
 
-  public deleteActiveSubst: ActiveSubst | null | undefined;
+  // @ts-ignore
+  public deleteActiveSubst: ActiveSubst;
 
   constructor(private activeSubstanceService: ActiveSubstanceService,
               private route: ActivatedRoute,
@@ -91,7 +92,7 @@ export class ActiveSubstListComponent implements OnInit {
     )
   }
 
-  onDeleteActiveSubst(activeSubstId: number): void {
+  onDeleteActiveSubst(activeSubstId?: number): void {
     this.activeSubstanceService.deleteActiveSubst(activeSubstId).subscribe(
       (response) => {
         this.getAllActiveSubsts();

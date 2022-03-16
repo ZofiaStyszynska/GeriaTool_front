@@ -1,6 +1,6 @@
 export interface ActiveSubst {
 
-  id: number;
+  id?: number;
   name: string;
   atcCode: string;
 
