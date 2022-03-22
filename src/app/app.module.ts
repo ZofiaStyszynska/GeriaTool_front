@@ -16,10 +16,12 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MedicineComponent } from './components/medicine/medicine.component';
 
 const routes: Routes = [
   {path: 'activesubstance/search/:searchCode', component: ActiveSubstListComponent},
   {path: 'activesubstance/name/:name', component:ActiveSubstListComponent},
+  {path: 'medicine', component:MedicineComponent},
   {path: 'activesubstance', component: ActiveSubstListComponent},
   {path: 'activesubstance/add', component: AddActiveSubstComponent},
   {path: '', redirectTo: '/activesubstance', pathMatch:'full'}
@@ -31,7 +33,8 @@ const routes: Routes = [
     ActiveSubstListComponent,
     SearchComponent,
     AddActiveSubstComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    MedicineComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

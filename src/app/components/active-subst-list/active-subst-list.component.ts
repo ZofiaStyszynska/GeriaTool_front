@@ -5,6 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {MedicineService} from "../../services/medicine.service";
+import {Medicine} from "../../common/medicine";
 
 @Component({
   selector: 'app-active-subst-list',
@@ -20,8 +22,12 @@ export class ActiveSubstListComponent implements OnInit {
 
   // @ts-ignore
   public deleteActiveSubst: ActiveSubst;
+  public medicines: Medicine[] | undefined;
+
+  public asDetails: ActiveSubst | undefined;
 
   constructor(private activeSubstanceService: ActiveSubstanceService,
+              private medicineService: MedicineService,
               private route: ActivatedRoute,
               private modalService: NgbModal) {
   }
@@ -79,6 +85,13 @@ export class ActiveSubstListComponent implements OnInit {
       }
     )
   }
+  getMedicinesByAS(asId:number|undefined): void{
+    this.medicineService.getMedicinesByAS(asId).subscribe(
+      (response)=>{
+        this.medicines=response;
+      }
+    )
+  }
 
   onEditActiveSubst(activeSubst: ActiveSubst): void {
     this.activeSubstanceService.updateActiveSubst(activeSubst).subscribe(
@@ -111,7 +124,12 @@ export class ActiveSubstListComponent implements OnInit {
     }
     if (mode === 'delete') {
       this.deleteActiveSubst = activeSubst;
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'})
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    }
+    if (mode==='show'){
+      this.asDetails = activeSubst;
+      this.modalService.open(content, {ariaLabelledBy:'modal-basic-title'});
+      this.getMedicinesByAS(this.asDetails.id)
     }
   }
 
