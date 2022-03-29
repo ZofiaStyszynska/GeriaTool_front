@@ -20,8 +20,8 @@ export class ActiveSubstListComponent implements OnInit {
 
   public editActiveSubst: ActiveSubst | undefined;
 
-  // @ts-ignore
-  public deleteActiveSubst: ActiveSubst;
+
+  public deleteActiveSubst: ActiveSubst|undefined;
   public medicines: Medicine[] | undefined;
 
   public asDetails: ActiveSubst | undefined;

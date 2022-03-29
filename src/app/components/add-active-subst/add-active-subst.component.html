@@ -27,6 +27,16 @@
                id="active-subst-atc-code"
         >
       </div>
+      <div class="form-group">
+        <label for="active-subst-group" class="col-form-label">Grupa</label>
+        <input type="text"
+               [ngModel]="activeSubstance?.group"
+               name="group"
+               required
+               class="form-control"
+               id="active-subst-group"
+        >
+      </div>
       <div class="modal-footer">
         <button [disabled]="addActiveSubstForm.invalid" type="submit" class="btn btn-outline-dark"
                 (click)="modal.close('Save click')"
