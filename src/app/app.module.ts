@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {ReactiveFormsModule} from "@angular/forms";
-//import {CommonModule, DecimalPipe, AsyncPipe} from "@angular/common";
+import {CommonModule, DecimalPipe, AsyncPipe} from "@angular/common";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
@@ -21,7 +21,6 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MedicineComponent } from './components/medicine/medicine.component';
 import { MedicinesListComponent } from './components/medicines-list/medicines-list.component';
 import {MedicineService} from "./services/medicine.service";
-
 
 
 
@@ -56,9 +55,9 @@ const routes: Routes = [
     MatIconModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-   // CommonModule
+    CommonModule
   ],
-  providers: [ActiveSubstanceService, MedicineService],
+  providers: [ActiveSubstanceService, MedicineService, DecimalPipe, AsyncPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
