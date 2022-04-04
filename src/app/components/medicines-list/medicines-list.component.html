@@ -26,9 +26,9 @@
     <td>
       <ngb-highlight [result]="medicine.dosage.join(', ').toString()" [term]="filter.value"></ngb-highlight>
     </td>
-<!--    <td>-->
-<!--      <ngb-highlight [result]="medicine.activeSubstances.join(', ').toString()" [term]="filter.value"></ngb-highlight>-->
-<!--    </td>-->
+    <td>
+      <ngb-highlight [result]="medicine.activeSubstances.name.join(', ').toString()" [term]="filter.value"></ngb-highlight>
+    </td>
 
   </tr>
   </tbody>

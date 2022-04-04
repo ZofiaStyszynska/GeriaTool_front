@@ -20,6 +20,7 @@ export class MedicinesListComponent implements OnInit {
   medicines: Medicine[] = [];
   medicinesObs$: Observable<Medicine[]>;
   filteredMedicines$:Observable<Medicine[]>;
+
   filter: FormControl;
   filter$: Observable<string>;
   //private medicine: Medicine | undefined;
