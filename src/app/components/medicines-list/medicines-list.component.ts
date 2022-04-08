@@ -20,18 +20,24 @@ export class MedicinesListComponent implements OnInit {
   medicines: Medicine[] = [];
   medicinesObs$: Observable<Medicine[]>;
   filteredMedicines$:Observable<Medicine[]>;
+  medicine: Medicine | undefined;
+  activeSubsts: ActiveSubst[] | undefined = [];
 
   filter: FormControl;
   filter$: Observable<string>;
-  //private medicine: Medicine | undefined;
+
 
   constructor(private medicineService: MedicineService) {
     this.medicinesObs$ = this.medicineService.getAllMedicines();
+
     this.filter = new FormControl('');
     this.filter$ = this.filter.valueChanges.pipe(startWith(''));
 
+
     this.filteredMedicines$=combineLatest([this.medicinesObs$, this.filter$]).pipe(map(([medicines, term]) =>
-      medicines.filter(medicine=>medicine.tradeName.toLowerCase().includes(term.toLowerCase()))));
+      medicines.filter(medicine=>medicine.tradeName.toLowerCase().includes(term.toLowerCase())
+        ||medicine.activeSubsts.find(activeSubst=>activeSubst.name.toLowerCase().includes(term.toLowerCase()))
+      )));
 
 
   }
@@ -68,5 +74,31 @@ export class MedicinesListComponent implements OnInit {
     )
 
     return this.medicines
+  }
+
+  getMedicinebyId(medId: number | undefined): Medicine | undefined{
+      this.medicineService.getMedicineById(medId).subscribe(
+      (response)=>{
+        this.medicine = response;
+      },(error: HttpErrorResponse)=>{
+        alert(error.message)
+       }
+    )
+    return this.medicine
+  }
+  getActiveSubstNamesByMedicine(medId:number|undefined){
+    this.medicine?.activeSubsts.forEach(actSubst=>actSubst.name.concat())
+
+  }
+  addMedicine(medicine:Medicine){
+    console.log(medicine+ "in addMedicine")
+    this.medicineService.addMedicine(medicine).subscribe(
+      (response)=>{
+        console.log(response)
+        this.medicines.push(response)
+      },(error: HttpErrorResponse)=>{
+        alert(error.message)
+      }
+    )
   }
 }

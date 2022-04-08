@@ -21,6 +21,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MedicineComponent } from './components/medicine/medicine.component';
 import { MedicinesListComponent } from './components/medicines-list/medicines-list.component';
 import {MedicineService} from "./services/medicine.service";
+import { AddMedicineComponent } from './components/add-medicine/add-medicine.component';
 
 
 
@@ -41,7 +42,8 @@ const routes: Routes = [
     AddActiveSubstComponent,
     ToolbarComponent,
     MedicineComponent,
-    MedicinesListComponent
+    MedicinesListComponent,
+    AddMedicineComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -16,7 +16,7 @@ export class MedicineService {
     return this.http.get<Medicine[]>(`${this.baseUrl}`);
   }
 
-  public getMedicineById(id:number): Observable<Medicine> {
+  public getMedicineById(id: number | undefined): Observable<Medicine> {
     return this.http.get<Medicine>(`${this.baseUrl}/id/${id}`);
   }
   public getMedicinesByAS(id:number|undefined): Observable<Medicine[]>{

@@ -4,6 +4,8 @@ export interface Medicine {
 
   id?: number;
   tradeName: string;
-  activeSubstances: Array<ActiveSubst>;
-  dosage: Array<string>;
+  activeSubsts: ActiveSubst[];
+  dosages: Array<string>;
+
+
 }

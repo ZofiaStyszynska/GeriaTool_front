@@ -1,3 +1,5 @@
+
+<ng-container>
 <form>
   <div class="mb-3 row">
     <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
@@ -6,6 +8,8 @@
     </div>
   </div>
 </form>
+  <app-add-medicine (onAddMedicine)="addMedicine($event)"></app-add-medicine>
+</ng-container>
 
 <table class="table table-striped">
   <thead>
@@ -13,7 +17,7 @@
     <th scope="col">#</th>
     <th scope="col">Nazwa handlowa</th>
     <th scope="col">Dawkowanie</th>
-    <th scope="col">Substancje aktywne </th>
+    <th scope="col">Substancje aktywne</th>
   </tr>
   </thead>
   <tbody>
@@ -24,10 +28,14 @@
       <ngb-highlight [result]="medicine.tradeName" [term]="filter.value"></ngb-highlight>
     </td>
     <td>
-      <ngb-highlight [result]="medicine.dosage.join(', ').toString()" [term]="filter.value"></ngb-highlight>
+      <ngb-highlight [result]="medicine.dosages.join(', ').toString()" [term]="filter.value"></ngb-highlight>
     </td>
     <td>
-      <ngb-highlight [result]="medicine.activeSubstances.name.join(', ').toString()" [term]="filter.value"></ngb-highlight>
+
+      <ngb-highlight class="active-subst" *ngFor="let activeSubst of medicine.activeSubsts" [result]="activeSubst.name"
+                     [term]="filter.value">
+
+      </ngb-highlight>
     </td>
 
   </tr>

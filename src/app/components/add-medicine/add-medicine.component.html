@@ -1,0 +1,48 @@
+<form [formGroup]="medicineForm" (ngSubmit)="onSubmit()">
+
+  <p>
+    <label for="tradeName">TradeName</label>
+    <input type="text" id="tradeName" name="tradeName" formControlName="tradeName">
+  </p>
+
+  <div formArrayName="dosages">
+    <div *ngFor="let dosage of dosages.controls; let i=index">
+
+        {{i}}
+        Dawkowanie :
+        <input type="text" [formControlName]="i">
+        <button (click)="removeDosage(i)">Remove</button>
+
+
+    </div>
+  </div>
+
+  <div formArrayName="activeSubsts">
+    <div *ngFor="let activeSubst of activeSubsts.controls; let i=index">
+      <div [formGroupName]="i">
+        {{i}}
+        Nazwa substancji aktywnej :
+        <input type="text" formControlName="name">
+        Kod ATC:
+        <input type="text" formControlName="atcCode">
+        Grupa:
+        <input type="text" formControlName="group">
+
+        <button (click)="removeActiveSubst(i)">Remove</button>
+
+
+      </div>
+    </div>
+  </div>
+
+  <p>
+    <button type="submit">Submit</button>
+  </p>
+</form>
+<p>
+  <button type="button" (click)="addDosages()">Dodaj dawkę</button>
+</p>
+
+<p>
+  <button type="button" (click)="addActiveSubst()">Dodaj substancję aktywną</button>
+</p>
