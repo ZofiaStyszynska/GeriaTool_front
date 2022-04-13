@@ -1,6 +1,7 @@
 import {Component, OnInit, PipeTransform} from '@angular/core';
 import {Medicine} from "../../common/medicine";
 import {MedicineService} from "../../services/medicine.service";
+import {ActiveSubstanceService} from "../../services/active-substance.service";
 import {ActiveSubst} from "../../common/active-subst";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Observable, of} from "rxjs";
@@ -19,7 +20,7 @@ export class MedicinesListComponent implements OnInit {
 
   medicines: Medicine[] = [];
   medicinesObs$: Observable<Medicine[]>;
-  filteredMedicines$:Observable<Medicine[]>;
+  filteredMedicines$: Observable<Medicine[]> | undefined;
   medicine: Medicine | undefined;
   activeSubsts: ActiveSubst[] | undefined = [];
 
@@ -27,26 +28,25 @@ export class MedicinesListComponent implements OnInit {
   filter$: Observable<string>;
 
 
-  constructor(private medicineService: MedicineService) {
+  constructor(private medicineService: MedicineService, private activeSubstanceService: ActiveSubstanceService) {
     this.medicinesObs$ = this.medicineService.getAllMedicines();
 
     this.filter = new FormControl('');
     this.filter$ = this.filter.valueChanges.pipe(startWith(''));
 
 
-    this.filteredMedicines$=combineLatest([this.medicinesObs$, this.filter$]).pipe(map(([medicines, term]) =>
-      medicines.filter(medicine=>medicine.tradeName.toLowerCase().includes(term.toLowerCase())
-        ||medicine.activeSubsts.find(activeSubst=>activeSubst.name.toLowerCase().includes(term.toLowerCase()))
-      )));
+
 
 
   }
 
   ngOnInit(): void {
-    // this.medicinesObs$ = this.filter.valueChanges.pipe(
-    //   startWith(''),
-    //   map(text => this.search(text))
-    // )
+    this.filteredMedicines$ = combineLatest([this.medicinesObs$, this.filter$]).pipe(map(([medicines, term]) =>
+      medicines.filter(medicine => medicine.tradeName.toLowerCase().includes(term.toLowerCase())
+        || medicine.activeSubsts.find(activeSubst => activeSubst.name.toLowerCase().includes(term.toLowerCase()))
+      )));
+
+    this.getAllActiveSubsts()
 
   }
 
@@ -58,7 +58,7 @@ export class MedicinesListComponent implements OnInit {
       console.log(this.medicines + "in search meth")
       const term = text.toLowerCase();
       return medicine.tradeName.toLowerCase().includes(term);
-      //|| pipe.transform(medicine.activeSubstances).includes(term);
+
     });
   }
 
@@ -76,28 +76,55 @@ export class MedicinesListComponent implements OnInit {
     return this.medicines
   }
 
-  getMedicinebyId(medId: number | undefined): Medicine | undefined{
-      this.medicineService.getMedicineById(medId).subscribe(
-      (response)=>{
+  getMedicinebyId(medId: number | undefined): Medicine | undefined {
+    this.medicineService.getMedicineById(medId).subscribe(
+      (response) => {
         this.medicine = response;
-      },(error: HttpErrorResponse)=>{
+      }, (error: HttpErrorResponse) => {
         alert(error.message)
-       }
+      }
     )
     return this.medicine
   }
-  getActiveSubstNamesByMedicine(medId:number|undefined){
-    this.medicine?.activeSubsts.forEach(actSubst=>actSubst.name.concat())
+
+  getActiveSubstNamesByMedicine(medId: number | undefined) {
+    this.medicine?.activeSubsts.forEach(actSubst => actSubst.name.concat())
 
   }
-  addMedicine(medicine:Medicine){
-    console.log(medicine+ "in addMedicine")
+
+  addMedicine(medicine: Medicine) {
     this.medicineService.addMedicine(medicine).subscribe(
-      (response)=>{
+      (response) => {
         console.log(response)
         this.medicines.push(response)
-      },(error: HttpErrorResponse)=>{
+        this.ngOnInit()
+      }, (error: HttpErrorResponse) => {
         alert(error.message)
+      }
+    )
+  }
+
+  getAllActiveSubsts(): void {
+    this.activeSubstanceService
+      .getAllActiveSubst()
+      .subscribe(
+      (response) => {
+        this.activeSubsts = response;
+        response.sort((a: ActiveSubst, b) => a.name.localeCompare(b.name)) //alphabetical order
+
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+
+  }
+  deleteMedicine(medId?:number): void{
+    this.medicineService.deleteMedicine(medId).subscribe(
+      ()=>{this.ngOnInit()
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
       }
     )
   }

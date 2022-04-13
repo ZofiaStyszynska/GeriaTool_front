@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Medicine} from "../../common/medicine";
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {FormArray} from '@angular/forms';
 import {ActiveSubst} from "../../common/active-subst";
 import {ReactiveFormsModule} from '@angular/forms';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-add-medicine',
@@ -14,11 +15,12 @@ import {ReactiveFormsModule} from '@angular/forms';
 export class AddMedicineComponent implements OnInit {
 
   @Output() onAddMedicine: EventEmitter<Medicine> = new EventEmitter();
+  @Input() activeSubstsInput: ActiveSubst[] | undefined;
   medicine: Medicine | undefined;
 
   medicineForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private modalService: NgbModal) {
     this.medicineForm = this.fb.group({
       tradeName: '',
       dosages: this.fb.array([]),
@@ -82,6 +84,10 @@ export class AddMedicineComponent implements OnInit {
 
     this.onAddMedicine.emit(newMedicine);
 
+  }
+  open(content: any) {
+
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
 

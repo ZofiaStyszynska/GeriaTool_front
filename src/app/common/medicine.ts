@@ -2,7 +2,7 @@ import {ActiveSubst} from "./active-subst";
 
 export interface Medicine {
 
-  id?: number;
+  medId?: number;
   tradeName: string;
   activeSubsts: ActiveSubst[];
   dosages: Array<string>;

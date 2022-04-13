@@ -16,8 +16,8 @@ export class MedicineService {
     return this.http.get<Medicine[]>(`${this.baseUrl}`);
   }
 
-  public getMedicineById(id: number | undefined): Observable<Medicine> {
-    return this.http.get<Medicine>(`${this.baseUrl}/id/${id}`);
+  public getMedicineById(medId: number | undefined): Observable<Medicine> {
+    return this.http.get<Medicine>(`${this.baseUrl}/id/${medId}`);
   }
   public getMedicinesByAS(id:number|undefined): Observable<Medicine[]>{
     return this.http.get<Medicine[]>(`${this.baseUrl}/asid/${id}`);
@@ -28,8 +28,8 @@ export class MedicineService {
   public updateMedicine(medicine: Medicine | undefined): Observable<Medicine> {
     return this.http.put<Medicine>(`${this.baseUrl}/update`, medicine);
   }
-  public deleteMedicine(id: number | undefined): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  public deleteMedicine(medId: number | undefined): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${medId}`);
   }
 }
 
