@@ -18,10 +18,11 @@ import {ActiveSubstanceService} from "./services/active-substance.service";
 import { SearchComponent } from './components/search/search.component';
 import { AddActiveSubstComponent } from './components/add-active-subst/add-active-subst.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { MedicineComponent } from './components/medicine/medicine.component';
+
 import { MedicinesListComponent } from './components/medicines-list/medicines-list.component';
 import {MedicineService} from "./services/medicine.service";
 import { AddMedicineComponent } from './components/add-medicine/add-medicine.component';
+import { PatientComponent } from './components/patient/patient.component';
 
 
 
@@ -41,9 +42,9 @@ const routes: Routes = [
     SearchComponent,
     AddActiveSubstComponent,
     ToolbarComponent,
-    MedicineComponent,
     MedicinesListComponent,
-    AddMedicineComponent
+    AddMedicineComponent,
+    PatientComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
