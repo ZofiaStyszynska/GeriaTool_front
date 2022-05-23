@@ -5,11 +5,11 @@ import {ActiveSubstanceService} from "../../services/active-substance.service";
 import {ActiveSubst} from "../../common/active-subst";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Observable, of} from "rxjs";
-import {DecimalPipe} from "@angular/common";
 import {FormControl} from "@angular/forms";
 
 import {combineLatest} from "rxjs";
 import {map, startWith} from "rxjs/operators";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-medicines-list',
@@ -28,11 +28,12 @@ export class MedicinesListComponent implements OnInit {
   filter$: Observable<string>;
 
 
-  constructor(private medicineService: MedicineService, private activeSubstanceService: ActiveSubstanceService) {
+  constructor(private medicineService: MedicineService, private activeSubstanceService: ActiveSubstanceService,private modalService: NgbModal) {
     this.medicinesObs$ = this.medicineService.getAllMedicines();
 
     this.filter = new FormControl('');
     this.filter$ = this.filter.valueChanges.pipe(startWith(''));
+
 
 
 
@@ -106,8 +107,7 @@ export class MedicinesListComponent implements OnInit {
 
   getAllActiveSubsts(): void {
     this.activeSubstanceService
-      .getAllActiveSubst()
-      .subscribe(
+      .getAllActiveSubst().subscribe(
       (response) => {
         this.activeSubsts = response;
         response.sort((a: ActiveSubst, b) => a.name.localeCompare(b.name)) //alphabetical order
@@ -127,5 +127,20 @@ export class MedicinesListComponent implements OnInit {
         alert(error.message);
       }
     )
+  }
+  updateMedicine(medicine:Medicine):void{
+    this.medicineService.updateMedicine(medicine).subscribe(
+      ()=>{
+        this.ngOnInit()
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
+  openModal(content:any, medicine:Medicine): void{
+    this.medicine = medicine;
+    this.modalService.open(content);
   }
 }

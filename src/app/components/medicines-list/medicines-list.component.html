@@ -1,16 +1,19 @@
-
+<app-toolbar></app-toolbar>
 <ng-container>
 <form>
   <div class="mb-3 row">
-    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Szukaj leku:</label>
     <div class="col-xs-3 col-sm-auto">
       <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
     </div>
   </div>
 </form>
+
   <app-add-medicine
     (onAddMedicine)="addMedicine($event)"
-  [activeSubstsInput]="activeSubsts"></app-add-medicine>
+  [activeSubstsInput]="activeSubsts">
+
+  </app-add-medicine>
 </ng-container>
 
 <table class="table table-striped">
@@ -20,6 +23,7 @@
     <th scope="col">Nazwa handlowa</th>
     <th scope="col">Dawkowanie</th>
     <th scope="col">Substancje aktywne</th>
+    <th scope="col"></th>
     <th scope="col"></th>
   </tr>
   </thead>
@@ -41,7 +45,18 @@
       </ngb-highlight>
     </td>
     <td>
-      <button type="button" class="btn btn-outline-secondary" (click)="deleteMedicine(medicine?.medId)"
+      <button type="button" class="btn btn-outline-secondary" (click)="openModal(updateContent,medicine)"
+              data-target="#edit-active-subst-modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
+             viewBox="0 0 16 16">
+          <path
+            d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
+        </svg>
+
+      </button>
+    </td>
+    <td>
+      <button type="button" class="btn btn-outline-secondary" (click)="openModal(deleteContent, medicine)"
               data-target="#edit-active-subst-modal">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
              viewBox="0 0 16 16">
@@ -53,8 +68,64 @@
 
       </button>
     </td>
+    <td><app-update-medicine [tempMedicine]="medicine"></app-update-medicine></td>
 
   </tr>
   </tbody>
 </table>
 
+<!--Delete modal-->
+<ng-template #deleteContent let-modal id="delete-medicine-modal">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-delete-title">Czy usunąć substancję "{{medicine?.tradeName}}"</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+            (click)="deleteMedicine(medicine?.medId); modal.dismiss('Cross click') "
+    >Usuń
+    </button>
+  </div>
+</ng-template>
+<!--Update modal-->
+<ng-template #updateContent let-modal id="update-medicine-modal">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edytuj dane</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #updateActiveSubstForm="ngForm">
+      <div class="form-group">
+        <input type="hidden"
+               ngModel="{{medicine?.medId}}"
+               name="id"
+               required
+               class="form-control"
+               id="active-subst-id"
+        >
+      </div>
+      <div class="form-group">
+        <label for="active-subst-name" class="col-form-label">Nazwa</label>
+        <input type="text"
+               ngModel="{{medicine?.tradeName}}"
+               name="name"
+               required
+               class="form-control"
+               id="active-subst-name"
+        >
+      </div>
+
+      <div class="modal-footer">
+        <button [disabled]="updateActiveSubstForm.invalid" type="button" class="btn btn-outline-dark"
+                (click)="updateMedicine(updateActiveSubstForm.value); modal.dismiss('Cross click') "
+        >Zapisz
+        </button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>

@@ -1,22 +1,19 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Medicine} from "../../common/medicine";
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {FormArray} from '@angular/forms';
 import {ActiveSubst} from "../../common/active-subst";
+import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: 'app-add-medicine',
-  templateUrl: './add-medicine.component.html',
-  styleUrls: ['./add-medicine.component.css']
+  selector: 'app-update-medicine',
+  templateUrl: './update-medicine.component.html',
+  styleUrls: ['./update-medicine.component.css']
 })
-export class AddMedicineComponent implements OnInit {
+export class UpdateMedicineComponent implements OnInit {
 
-  @Output() onAddMedicine: EventEmitter<Medicine> = new EventEmitter();
   @Output() onUpdateMedicine: EventEmitter<Medicine> = new EventEmitter();
   @Input() tempMedicine: Medicine | undefined;
-  @Input() activeSubstsInput: ActiveSubst[] | undefined;
+
   medicine: Medicine | undefined;
 
   medicineForm: FormGroup;
@@ -48,6 +45,35 @@ export class AddMedicineComponent implements OnInit {
       activeSubsts: this.fb.array([]),
     })
   }
+  editMedicine(tempMedicine:Medicine|undefined){
+    this.medicineForm.patchValue({
+      tradeName: tempMedicine?.tradeName,
+
+
+    });
+    this.medicineForm.setControl("dosages",this.setExistingDosages(tempMedicine?.dosages));
+    this.medicineForm.setControl("activeSubsts",this.setExistingActiveSubst(tempMedicine?.activeSubsts));
+  }
+  setExistingDosages(dosagesSet: string[]|undefined):FormArray{
+    const formArray = new FormArray([]);
+    dosagesSet?.forEach(d=>{
+      formArray.push(this.fb.control(d))
+    })
+    return formArray;
+
+
+  }
+  setExistingActiveSubst(activeSubstSet:ActiveSubst[] | undefined): FormArray{
+    const formArray = new FormArray([]);
+    activeSubstSet?.forEach(as =>{
+      formArray.push(this.fb.group({
+        name:as.name,
+        atcCode:as.atcCode,
+        group:as.group
+      }))
+    });
+    return formArray;
+  }
 
 
 
@@ -78,17 +104,18 @@ export class AddMedicineComponent implements OnInit {
   removeActiveSubst(i: number) {
     this.activeSubsts.removeAt(i);
   }
-  editMedicine(tempMedicine:Medicine){
-    this.medicineForm.patchValue({
 
-    })
+  openModal(tempMedicine:Medicine|undefined, content:any){
+    this.editMedicine(tempMedicine);
+    this.modalService.open(content);
   }
+
 
   onSubmit() {
 
     const newMedicine : Medicine = this.medicineForm.value;
 
-    this.onAddMedicine.emit(newMedicine);
+    this.onUpdateMedicine.emit(newMedicine);
 
   }
   open(content: any) {
@@ -99,5 +126,6 @@ export class AddMedicineComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }

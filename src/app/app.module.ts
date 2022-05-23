@@ -23,12 +23,14 @@ import { MedicinesListComponent } from './components/medicines-list/medicines-li
 import {MedicineService} from "./services/medicine.service";
 import { AddMedicineComponent } from './components/add-medicine/add-medicine.component';
 import { PatientComponent } from './components/patient/patient.component';
+import { UpdateMedicineComponent } from './components/update-medicine/update-medicine.component';
 
 
 
 const routes: Routes = [
   {path: 'activesubstance/search/:searchCode', component: ActiveSubstListComponent},
   {path: 'activesubstance/name/:name', component:ActiveSubstListComponent},
+  {path: 'patient', component:PatientComponent},
   {path: 'medicine', component:MedicinesListComponent},
   {path: 'activesubstance', component: ActiveSubstListComponent},
   {path: 'activesubstance/add', component: AddActiveSubstComponent},
@@ -44,7 +46,8 @@ const routes: Routes = [
     ToolbarComponent,
     MedicinesListComponent,
     AddMedicineComponent,
-    PatientComponent
+    PatientComponent,
+    UpdateMedicineComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
