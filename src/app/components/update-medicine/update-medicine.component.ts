@@ -20,11 +20,15 @@ export class UpdateMedicineComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private modalService: NgbModal) {
     this.medicineForm = this.fb.group({
+      medId: '',
       tradeName: '',
       dosages: this.fb.array([]),
       activeSubsts: this.fb.array([]),
 
     })
+  }
+  get medId(): FormControl{
+    return this.medicineForm.get('medId') as FormControl
   }
   get tradeName(): FormControl{
     return this.medicineForm.get('tradeName') as FormControl
@@ -47,10 +51,12 @@ export class UpdateMedicineComponent implements OnInit {
   }
   editMedicine(tempMedicine:Medicine|undefined){
     this.medicineForm.patchValue({
+      medId: tempMedicine?.medId,
+    })
+    this.medicineForm.patchValue({
       tradeName: tempMedicine?.tradeName,
-
-
     });
+
     this.medicineForm.setControl("dosages",this.setExistingDosages(tempMedicine?.dosages));
     this.medicineForm.setControl("activeSubsts",this.setExistingActiveSubst(tempMedicine?.activeSubsts));
   }

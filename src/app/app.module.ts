@@ -24,6 +24,9 @@ import {MedicineService} from "./services/medicine.service";
 import { AddMedicineComponent } from './components/add-medicine/add-medicine.component';
 import { PatientComponent } from './components/patient/patient.component';
 import { UpdateMedicineComponent } from './components/update-medicine/update-medicine.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+
 
 
 
@@ -47,7 +50,8 @@ const routes: Routes = [
     MedicinesListComponent,
     AddMedicineComponent,
     PatientComponent,
-    UpdateMedicineComponent
+    UpdateMedicineComponent,
+
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -61,7 +65,9 @@ const routes: Routes = [
     MatIconModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [ActiveSubstanceService, MedicineService, DecimalPipe, AsyncPipe],
   bootstrap: [AppComponent]

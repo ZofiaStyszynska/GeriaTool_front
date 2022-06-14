@@ -43,8 +43,15 @@ export class MedicinesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredMedicines$ = combineLatest([this.medicinesObs$, this.filter$]).pipe(map(([medicines, term]) =>
-      medicines.filter(medicine => medicine.tradeName.toLowerCase().includes(term.toLowerCase())
-        || medicine.activeSubsts.find(activeSubst => activeSubst.name.toLowerCase().includes(term.toLowerCase()))
+      medicines
+        .sort((a: Medicine,b)=>a.tradeName.localeCompare(b.tradeName))
+        .filter(medicine =>
+          medicine.tradeName
+            .toLowerCase()
+            .includes(term.toLowerCase())
+        || medicine.activeSubsts.find(activeSubst => activeSubst.name
+            .toLowerCase()
+            .includes(term.toLowerCase()))
       )));
 
     this.getAllActiveSubsts()
@@ -129,8 +136,10 @@ export class MedicinesListComponent implements OnInit {
     )
   }
   updateMedicine(medicine:Medicine):void{
+    console.log(medicine);
     this.medicineService.updateMedicine(medicine).subscribe(
       ()=>{
+
         this.ngOnInit()
       },
       (error: HttpErrorResponse) => {
