@@ -1,0 +1,26 @@
+<p xmlns:class="http://www.w3.org/1999/xhtml">
+  <mat-toolbar>
+    <span><fa-icon class="md-dark" [icon]="faCapsules"></fa-icon> GeriaTool</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu"  aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item routerLink="/activesubstance" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <mat-icon>science</mat-icon>
+        <span>Substancje aktywne</span>
+
+      </button>
+      <button mat-menu-item>
+        <mat-icon>face</mat-icon>
+        <span>Pacjent</span>
+      </button>
+      <button mat-menu-item routerLink="/medicine" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <mat-icon>medication</mat-icon>
+        <span>Leki</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+</p>
+
+

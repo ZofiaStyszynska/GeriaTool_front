@@ -9,30 +9,41 @@ import {map} from "rxjs/operators";
 })
 export class ActiveSubstanceService {
 
-  private baseUrl = 'http://localhost:8080/active-substances';
+  private baseUrl = 'http://localhost:8080/activesubstance';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
-  getActiveSubstList(): Observable<ActiveSubst[]> {
-    return this.getActiveSubsts(this.baseUrl);
+  public getAllActiveSubst(): Observable<ActiveSubst[]> {
+    return this.http.get<ActiveSubst[]>(`${this.baseUrl}`);
   }
 
-  searchActiveSubst(theSearchCode: string | null): Observable<ActiveSubst[]> {
-    const searchUrl = `${this.baseUrl}/search/findActiveSubstsByAtcCodeIsStartingWith?searchCode=${theSearchCode}`;
-    return this.getActiveSubsts(searchUrl);
+  public getActiveSubstById(id:number): Observable<ActiveSubst> {
+    return this.http.get<ActiveSubst>(`${this.baseUrl}/id/${id}`);
   }
 
-  private getActiveSubsts(searchUrl: string) {
-    return this.httpClient.get<GetResponse>(searchUrl).pipe(
-      map(response => response._embedded.activeSubst)
-    );
+  public getActiveSubstBySearchCode(searchCode: string | null): Observable<ActiveSubst[]> {
+    return this.http.get<ActiveSubst[]>(`${this.baseUrl}/search/${searchCode}`);
   }
+
+  public getActiveSubstByName(name: string | null): Observable<ActiveSubst[]> {
+    return this.http.get<ActiveSubst[]>(`${this.baseUrl}/name/${name}`);
+  }
+
+  public addActiveSubst(activeSubst: ActiveSubst | undefined): Observable<ActiveSubst> {
+    return this.http.post<ActiveSubst>(`${this.baseUrl}/add`, activeSubst);
+  }
+
+  public updateActiveSubst(activeSubst:ActiveSubst): Observable<ActiveSubst> {
+    return this.http.put<ActiveSubst>(`${this.baseUrl}/update`, activeSubst);
+  }
+
+  public deleteActiveSubst(id: number | undefined): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
+
+
+
+
 }
 
-interface GetResponse {
-  _embedded: {
-    activeSubst: ActiveSubst[];
-  }
-
-}

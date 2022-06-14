@@ -1,0 +1,68 @@
+<!--<form [formGroup]="patientForm" (ngSubmit)="onSubmit()">-->
+<!--  <div class="form-group">-->
+<!--    <p>-->
+<!--      <label for="tradeName" class="col-form-label">Nazwa Handlowa : </label>-->
+<!--      <input type="text"-->
+<!--             class="form-control"-->
+<!--             id="tradeName" name="tradeName" formControlName="tradeName">-->
+<!--    </p>-->
+<!--  </div>-->
+<!--  <div class="form-group">-->
+<!--    <div formArrayName="dosages">-->
+<!--      <div *ngFor="let dosage of dosages.controls; let i=index">-->
+<!--        <div class="input-group mt-2 mb-3">-->
+<!--          <label for="dosage-{{i}}" class="col-form-label"> {{i + 1}} Dawkowanie :</label>-->
+
+<!--          <input type="text"-->
+<!--                 class="form-control"-->
+<!--                 id="dosage-{{i}}"-->
+<!--                 [formControlName]="i">-->
+<!--          <div class="input-group-append">-->
+<!--            <button class="btn btn-outline-secondary" (click)="removeDosage(i)">-->
+<!--              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"-->
+<!--                   viewBox="0 0 16 16">-->
+<!--                <path-->
+<!--                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>-->
+<!--              </svg>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <p>-->
+<!--      <button type="button" class="btn btn-secondary btn-sm" (click)="addDosages()">Dodaj dawkowanie</button>-->
+<!--    </p>-->
+<!--  </div>-->
+
+
+<!--  <div formArrayName="activeSubsts">-->
+<!--    <div *ngFor="let activeSubst of activeSubsts.controls; let i=index">-->
+<!--      <div [formGroupName]="i">-->
+
+<!--        Nazwa substancji aktywnej :-->
+<!--        <input type="text"-->
+<!--               class="form-control"-->
+<!--               formControlName="name">-->
+<!--        Kod ATC:-->
+<!--        <input type="text"-->
+<!--               class="form-control"-->
+<!--               formControlName="atcCode">-->
+<!--        Grupa:-->
+<!--        <input type="text"-->
+<!--               class="form-control"-->
+<!--               formControlName="group">-->
+
+<!--        <button class="btn btn-secondary btn-sm mb-3" (click)="removeActiveSubst(i)">Usuń</button>-->
+
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <p>-->
+<!--    <button type="button" class="btn btn-secondary btn-sm" (click)="addActiveSubst()">Dodaj substancję aktywną</button>-->
+<!--  </p>-->
+
+<!--  <p>-->
+<!--    <button type="submit" class="btn btn-secondary btn-sm" (click)="modal.dismiss('Cross click')">Zatwierdż</button>-->
+<!--  </p>-->
+<!--</form>-->

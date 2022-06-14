@@ -1,11 +1,12 @@
-export class ActiveSubst {
+import {Medicine} from "./medicine";
 
+export interface ActiveSubst {
 
+  id?: number;
   name: string;
   atcCode: string;
+  group: string;
+  medicines: Array<Medicine>;
 
-  constructor(name: string, atcCode: string) {
-    this.name = name;
-    this.atcCode = atcCode;
-  }
+
 }

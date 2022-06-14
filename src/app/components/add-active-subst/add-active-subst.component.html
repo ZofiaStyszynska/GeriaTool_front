@@ -1,0 +1,55 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Wprowadź substancję aktywną</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #addActiveSubstForm="ngForm" (ngSubmit)="onAddActiveSubstance(addActiveSubstForm)">
+      <div class="form-group">
+        <label for="active-subst-name" class="col-form-label">Nazwa</label>
+        <input type="text"
+               [ngModel]="activeSubstance?.name"
+               name="name"
+               required
+               class="form-control"
+               id="active-subst-name"
+        >
+      </div>
+      <div class="form-group">
+        <label for="active-subst-atc-code" class="col-form-label">Kod ATC</label>
+        <input type="text"
+               [ngModel]="activeSubstance?.atcCode"
+               name="atcCode"
+               required
+               class="form-control"
+               id="active-subst-atc-code"
+        >
+      </div>
+      <div class="form-group">
+        <label for="active-subst-group" class="col-form-label">Grupa</label>
+        <input type="text"
+               [ngModel]="activeSubstance?.group"
+               name="group"
+               required
+               class="form-control"
+               id="active-subst-group"
+        >
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="addActiveSubstForm.invalid" type="submit" class="btn btn-outline-dark"
+                (click)="modal.close('Save click')"
+        >Zapisz
+        </button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<button class="btn btn-outline-dark" (click)="open(content)">Dodaj substancję aktywną</button>
+
+<hr>
+
+

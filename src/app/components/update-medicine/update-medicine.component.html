@@ -1,0 +1,97 @@
+<button type="button" class="btn btn-outline-secondary" (click)="openModal(tempMedicine, content)"
+        data-target="#update-medicine-modal">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
+       viewBox="0 0 16 16">
+    <path
+      d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
+  </svg>
+
+</button>
+<ng-template #content let-modal id="update-medicine-modal">
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edytuj dane leku</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="medicineForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <p>
+              <input type="hidden"
+                 class="form-control"
+                 id="medId" name="medId" formControlName="medId">
+        </p>
+      </div>
+      <div class="form-group">
+        <p>
+          <label for="tradeName" class="col-form-label">Nazwa Handlowa : </label>
+          <input type="text"
+                 class="form-control"
+                 id="tradeName" name="tradeName" formControlName="tradeName">
+        </p>
+      </div>
+      <div class="form-group">
+        <div formArrayName="dosages">
+          <div *ngFor="let dosage of dosages.controls; let i=index">
+            <div class="input-group mt-2 mb-3">
+              <label for="dosage-{{i}}" class="col-form-label"> {{i + 1}} Dawkowanie :</label>
+
+              <input type="text"
+                     class="form-control"
+                     id="dosage-{{i}}"
+                     [formControlName]="i">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="removeDosage(i)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
+                       viewBox="0 0 16 16">
+                    <path
+                      d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>
+          <button type="button" class="btn btn-secondary btn-sm" (click)="addDosages()">Dodaj dawkowanie</button>
+        </p>
+      </div>
+
+
+      <div formArrayName="activeSubsts">
+        <div *ngFor="let activeSubst of activeSubsts.controls; let i=index">
+          <div [formGroupName]="i">
+
+            Nazwa substancji aktywnej :
+            <input type="text"
+                   class="form-control"
+                   formControlName="name">
+            Kod ATC:
+            <input type="text"
+                   class="form-control"
+                   formControlName="atcCode">
+            Grupa:
+            <input type="text"
+                   class="form-control"
+                   formControlName="group">
+
+            <button class="btn btn-secondary btn-sm mb-3" (click)="removeActiveSubst(i)">Usuń</button>
+
+
+          </div>
+        </div>
+      </div>
+      <p>
+        <button type="button" class="btn btn-secondary btn-sm" (click)="addActiveSubst()">Dodaj substancję aktywną
+        </button>
+      </p>
+
+      <p>
+        <button type="submit" class="btn btn-secondary btn-sm" (click)="modal.dismiss('Cross click')">Zatwierdż</button>
+      </p>
+    </form>
+
+  </div>
+</ng-template>
