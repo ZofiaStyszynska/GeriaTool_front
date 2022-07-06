@@ -3,14 +3,14 @@
 <ng-container>
   <form>
     <div class="mb-3 row">
-      <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Szukaj leku:</label>
+      <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Szukaj substancji aktywnej:</label>
       <div class="col-xs-3 col-sm-auto">
         <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
       </div>
     </div>
   </form>
 </ng-container>
-<app-search></app-search>
+
 <app-add-active-subst></app-add-active-subst>
 <table class="table table-striped">
   <thead>
@@ -24,18 +24,24 @@
   </thead>
   <tbody>
   <!--List-->
-  <tr *ngFor="let tempSubstance of activeSubstances">
-    <td>{{tempSubstance.name}}</td>
-    <td>{{tempSubstance.atcCode}}</td>
+  <tr *ngFor="let tempSubstance of filteredActiveSubst$|async; index as i">
     <td>
-      <button type="button" class="material-symbols-outlined" mat-icon-button (click)="openModal(showContent,tempSubstance,'show')"
+      <ngb-highlight [result]="tempSubstance.name" [term]="filter.value"></ngb-highlight>
+    </td>
+    <td>
+      <ngb-highlight [result]="tempSubstance.atcCode" [term]="filter.value"></ngb-highlight>
+    </td>
+    <td>
+      <button type="button" class="material-symbols-outlined" mat-icon-button
+              (click)="openModal(showContent,tempSubstance,'show')"
               data-target="#show-active-subst-modal">
         <mat-icon class="material-icons-outlined md-dark">info_outline</mat-icon>
 
       </button>
     </td>
     <td>
-      <button type="button" class="material-symbols-outlined" mat-icon-button (click)="openModal(content,tempSubstance,'update')"
+      <button type="button" class="material-symbols-outlined" mat-icon-button
+              (click)="openModal(content,tempSubstance,'update')"
               data-target="#edit-active-subst-modal">
         <mat-icon fontSet="material-icons-outlined" class="md-dark">edit_outline</mat-icon>
 
@@ -43,7 +49,8 @@
       </button>
     </td>
     <td>
-      <button type="button" class="material-symbols-outlined" mat-icon-button  (click)="openModal(deleteContent,tempSubstance,'delete')"
+      <button type="button" class="material-symbols-outlined" mat-icon-button
+              (click)="openModal(deleteContent,tempSubstance,'delete')"
               data-target="#delete-active-subst-modal">
         <mat-icon fontSet="material-icons-outlined" class="md-dark">delete</mat-icon>
 
@@ -143,7 +150,7 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th scope="col" >Występuje w lekach:</th>
+            <th scope="col">Występuje w lekach:</th>
 
           </tr>
           </thead>
@@ -159,7 +166,6 @@
       </h4>
 
     </div>
-
 
 
   </ng-template>

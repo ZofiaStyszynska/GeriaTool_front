@@ -3,10 +3,13 @@ import {ActiveSubstanceService} from "../../services/active-substance.service";
 import {ActiveSubst} from "../../common/active-subst";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
-import {NgForm} from "@angular/forms";
+import {FormControl, NgForm} from "@angular/forms";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MedicineService} from "../../services/medicine.service";
 import {Medicine} from "../../common/medicine";
+import {Observable} from "rxjs";
+import {map, startWith} from "rxjs/operators";
+import {combineLatest} from "rxjs";
 
 @Component({
   selector: 'app-active-subst-list',
@@ -16,12 +19,16 @@ import {Medicine} from "../../common/medicine";
 export class ActiveSubstListComponent implements OnInit {
 
 
-  public activeSubstances: ActiveSubst[] | undefined;
+  public activeSubstances: ActiveSubst[] = [];
+  activeSubstsObs$: Observable<ActiveSubst[]>;
+  filteredActiveSubst$: Observable<ActiveSubst[]> | undefined;
+  filter: FormControl;
+  filter$: Observable<string>;
 
   public editActiveSubst: ActiveSubst | undefined;
 
 
-  public deleteActiveSubst: ActiveSubst|undefined;
+  public deleteActiveSubst: ActiveSubst | undefined;
   public medicines: Medicine[] | undefined;
 
   public asDetails: ActiveSubst | undefined;
@@ -30,9 +37,24 @@ export class ActiveSubstListComponent implements OnInit {
               private medicineService: MedicineService,
               private route: ActivatedRoute,
               private modalService: NgbModal) {
+    this.activeSubstsObs$ = this.activeSubstanceService.getAllActiveSubst();
+    this.filter = new FormControl('');
+    this.filter$ = this.filter.valueChanges.pipe(startWith(''));
+
   }
 
-  ngOnInit() {
+  ngOnInit():void {
+    this.filteredActiveSubst$ = combineLatest([this.activeSubstsObs$,this.filter$]).pipe(map(([activeSubstances,term])=>
+    activeSubstances.sort((a:ActiveSubst,b)=>a.name.localeCompare(b.name))
+      .filter(activeSubstance=>
+        activeSubstance.name
+          .toLowerCase()
+          .includes(term.toLowerCase())
+      || activeSubstance.atcCode
+          .toLowerCase()
+          .includes(term.toLowerCase())
+      )));
+
     this.handleSearchOptions();
 
 
@@ -85,10 +107,11 @@ export class ActiveSubstListComponent implements OnInit {
       }
     )
   }
-  getMedicinesByAS(asId:number|undefined): void{
+
+  getMedicinesByAS(asId: number | undefined): void {
     this.medicineService.getMedicinesByAS(asId).subscribe(
-      (response)=>{
-        this.medicines=response;
+      (response) => {
+        this.medicines = response;
       }
     )
   }
@@ -126,9 +149,9 @@ export class ActiveSubstListComponent implements OnInit {
       this.deleteActiveSubst = activeSubst;
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
     }
-    if (mode==='show'){
+    if (mode === 'show') {
       this.asDetails = activeSubst;
-      this.modalService.open(content, {ariaLabelledBy:'modal-basic-title'});
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
       this.getMedicinesByAS(this.asDetails.id)
     }
   }
