@@ -55,28 +55,12 @@ export class ActiveSubstListComponent implements OnInit {
           .includes(term.toLowerCase())
       )));
 
-    this.handleSearchOptions();
 
 
-  }
-
-  handleSearchOptions(): void {
-    this.route.paramMap.subscribe(() => {
-
-      if (this.route.snapshot.paramMap.has('searchCode')) {
-        this.getActiveSubstBySearchCode();
-      } else if (this.route.snapshot.paramMap.has('name')) {
-        this.getActiveSubstByName();
-      } else {
-
-        this.getAllActiveSubsts()
-      }
-    });
 
   }
 
-
-  getAllActiveSubsts(): void {
+   getAllActiveSubsts(): void {
     this.activeSubstanceService.getAllActiveSubst().subscribe(
       (response) => {
         this.activeSubstances = response;

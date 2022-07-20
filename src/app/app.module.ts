@@ -15,7 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppComponent } from './app.component';
 import { ActiveSubstListComponent } from './components/active-subst-list/active-subst-list.component';
 import {ActiveSubstanceService} from "./services/active-substance.service";
-import { SearchComponent } from './components/search/search.component';
+//import { SearchComponent } from './components/search/search.component';
 import { AddActiveSubstComponent } from './components/add-active-subst/add-active-subst.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
@@ -31,8 +31,6 @@ import {MatMenuModule} from "@angular/material/menu";
 
 
 const routes: Routes = [
-  {path: 'activesubstance/search/:searchCode', component: ActiveSubstListComponent},
-  {path: 'activesubstance/name/:name', component:ActiveSubstListComponent},
   {path: 'patient', component:PatientComponent},
   {path: 'medicine', component:MedicinesListComponent},
   {path: 'activesubstance', component: ActiveSubstListComponent},
@@ -44,7 +42,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ActiveSubstListComponent,
-    SearchComponent,
     AddActiveSubstComponent,
     ToolbarComponent,
     MedicinesListComponent,
