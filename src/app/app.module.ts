@@ -34,7 +34,6 @@ const routes: Routes = [
   {path: 'patient', component:PatientComponent},
   {path: 'medicine', component:MedicinesListComponent},
   {path: 'activesubstance', component: ActiveSubstListComponent},
-  {path: 'activesubstance/add', component: AddActiveSubstComponent},
   {path: '', redirectTo: '/medicine', pathMatch:'full'}
 ]
 

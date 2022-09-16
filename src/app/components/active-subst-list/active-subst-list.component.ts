@@ -19,19 +19,16 @@ import {combineLatest} from "rxjs";
 export class ActiveSubstListComponent implements OnInit {
 
 
-  public activeSubstances: ActiveSubst[] = [];
+  activeSubstances: ActiveSubst[] = [];
   activeSubstsObs$: Observable<ActiveSubst[]>;
   filteredActiveSubst$: Observable<ActiveSubst[]> | undefined;
   filter: FormControl;
   filter$: Observable<string>;
+  editActiveSubst: ActiveSubst | undefined;
+  deleteActiveSubst: ActiveSubst | undefined;
+  medicines: Medicine[] | undefined;
 
-  public editActiveSubst: ActiveSubst | undefined;
-
-
-  public deleteActiveSubst: ActiveSubst | undefined;
-  public medicines: Medicine[] | undefined;
-
-  public asDetails: ActiveSubst | undefined;
+  asDetails: ActiveSubst | undefined;
 
   constructor(private activeSubstanceService: ActiveSubstanceService,
               private medicineService: MedicineService,
@@ -43,24 +40,22 @@ export class ActiveSubstListComponent implements OnInit {
 
   }
 
-  ngOnInit():void {
-    this.filteredActiveSubst$ = combineLatest([this.activeSubstsObs$,this.filter$]).pipe(map(([activeSubstances,term])=>
-    activeSubstances.sort((a:ActiveSubst,b)=>a.name.localeCompare(b.name))
-      .filter(activeSubstance=>
-        activeSubstance.name
-          .toLowerCase()
-          .includes(term.toLowerCase())
-      || activeSubstance.atcCode
-          .toLowerCase()
-          .includes(term.toLowerCase())
-      )));
-
-
+  ngOnInit(): void {
+    this.filteredActiveSubst$ = combineLatest([this.activeSubstsObs$, this.filter$]).pipe(map(([activeSubstances, term]) =>
+      activeSubstances.sort((a: ActiveSubst, b) => a.name.localeCompare(b.name))
+        .filter(activeSubstance =>
+          activeSubstance.name
+            .toLowerCase()
+            .includes(term.toLowerCase())
+          || activeSubstance.atcCode
+            .toLowerCase()
+            .includes(term.toLowerCase())
+        )));
 
 
   }
 
-   getAllActiveSubsts(): void {
+  getAllActiveSubsts(): void {
     this.activeSubstanceService.getAllActiveSubst().subscribe(
       (response) => {
         this.activeSubstances = response;

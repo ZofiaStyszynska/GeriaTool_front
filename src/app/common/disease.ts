@@ -1,4 +1,4 @@
-export interface ICD10 {
+export interface Disease {
 
   id?: number;
   nameOfDisease: string;

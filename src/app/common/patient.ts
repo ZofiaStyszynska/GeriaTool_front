@@ -1,5 +1,5 @@
 import {Medicine} from "./medicine";
-import {ICD10} from "./icd10";
+import {Disease} from "./disease";
 
 export interface Patient {
 
@@ -8,6 +8,6 @@ export interface Patient {
   sex: string;
   weight: number;
   takenMedicines: Medicine[];
-  diseases: ICD10[];
+  diseases: Disease[];
   creatinineLevel: number;
 }

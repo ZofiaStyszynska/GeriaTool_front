@@ -81,7 +81,7 @@ export class MedicinesListComponent implements OnInit {
       }
     )
 
-    return this.medicines
+    return this.medicines;
   }
 
   getMedicinebyId(medId: number | undefined): Medicine | undefined {
