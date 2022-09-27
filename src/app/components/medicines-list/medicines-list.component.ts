@@ -59,16 +59,16 @@ export class MedicinesListComponent implements OnInit {
   }
 
 
-  search(text: string): Medicine[] {
-    this.medicines = this.getAllMedicines();
-    console.log("search method")
-    return this.medicines.filter(medicine => {
-      console.log(this.medicines + "in search meth")
-      const term = text.toLowerCase();
-      return medicine.tradeName.toLowerCase().includes(term);
-
-    });
-  }
+  // search(text: string): Medicine[] {
+  //   this.medicines = this.getAllMedicines();
+  //   console.log("search method")
+  //   return this.medicines.filter(medicine => {
+  //     console.log(this.medicines + "in search meth")
+  //     const term = text.toLowerCase();
+  //     return medicine.tradeName.toLowerCase().includes(term);
+  //
+  //   });
+  // }
 
   getAllMedicines(): Medicine[] {
     this.medicineService.getAllMedicines().subscribe(

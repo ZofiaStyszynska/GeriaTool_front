@@ -25,8 +25,9 @@
   <tbody>
   <!--List-->
   <tr *ngFor="let tempSubstance of filteredActiveSubst$|async; index as i">
-    <td>
-      <ngb-highlight [result]="tempSubstance.name" [term]="filter.value"></ngb-highlight>
+    <td >
+      <ngb-highlight class="showInfo" (click)="openModal(showContent,tempSubstance,'show')" [result]="tempSubstance.name" [term]="filter.value"></ngb-highlight>
+
     </td>
     <td>
       <ngb-highlight [result]="tempSubstance.atcCode" [term]="filter.value"></ngb-highlight>
@@ -139,7 +140,7 @@
     <div class="modal-header">
       <h4 class="modal-title" id="modal-show-title">Szczegóły substancji "{{asDetails?.name}}"</h4>
 
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <button type="button" class="btn btn-outline-dark" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>

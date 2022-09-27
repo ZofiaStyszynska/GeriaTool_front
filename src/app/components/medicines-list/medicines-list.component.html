@@ -32,14 +32,14 @@
     <th scope="row">{{ i + 1 }}</th>
     <td>
 
-      <ngb-highlight [result]="medicine.tradeName" [term]="filter.value"></ngb-highlight>
+      <ngb-highlight class="showInfo" (click)="openModal(showContent,medicine)" [result]="medicine.tradeName" [term]="filter.value"></ngb-highlight>
     </td>
     <td>
       <ngb-highlight [result]="medicine.dosages.join(', ').toString()" [term]="filter.value"></ngb-highlight>
     </td>
     <td>
 
-      <ngb-highlight class="active-subst" *ngFor="let activeSubst of medicine.activeSubsts" [result]="activeSubst.name"
+      <ngb-highlight class="active-subst showInfo" *ngFor="let activeSubst of medicine.activeSubsts" [result]="activeSubst.name"
                      [term]="filter.value">
 
       </ngb-highlight>
@@ -81,43 +81,44 @@
     </button>
   </div>
 </ng-template>
-<!--Update modal-->
-<ng-template #updateContent let-modal id="update-medicine-modal">
+
+<ng-template #showContent let-modal id="show-active-subst-modal">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Edytuj dane</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <h4 class="modal-title" id="modal-show-title">Szczegóły leku {{medicine?.tradeName}}</h4>
+
+    <button type="button" class="btn btn-outline-dark" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form #updateActiveSubstForm="ngForm">
-      <div class="form-group">
-        <input type="hidden"
-               ngModel="{{medicine?.medId}}"
-               name="id"
-               required
-               class="form-control"
-               id="active-subst-id"
-        >
-      </div>
-      <div class="form-group">
-        <label for="active-subst-name" class="col-form-label">Nazwa</label>
-        <input type="text"
-               ngModel="{{medicine?.tradeName}}"
-               name="name"
-               required
-               class="form-control"
-               id="active-subst-name"
-        >
-      </div>
 
-      <div class="modal-footer">
-        <button [disabled]="updateActiveSubstForm.invalid" type="button" class="btn btn-outline-dark"
-                (click)="updateMedicine(updateActiveSubstForm.value); modal.dismiss('Cross click') "
-        >Zapisz
-        </button>
-      </div>
-    </form>
+    <h4>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Substancje aktywne:</th>
+          <th scope="col">Kod ATC:</th>
+
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let activeSubst of medicine?.activeSubsts">
+
+          <td>
+            {{ activeSubst.name }}
+          </td>
+          <td>
+            {{ activeSubst.atcCode}}
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </h4>
+
   </div>
 
+
 </ng-template>
+
