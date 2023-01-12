@@ -22,7 +22,7 @@ export class MedicinesListComponent implements OnInit {
   medicinesObs$: Observable<Medicine[]>;
   filteredMedicines$: Observable<Medicine[]> | undefined;
   medicine: Medicine | undefined;
-  activeSubsts: ActiveSubst[] | undefined = [];
+  activeSubsts: ActiveSubst[] = [];
 
   filter: FormControl;
   filter$: Observable<string>;

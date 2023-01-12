@@ -26,6 +26,7 @@ import { PatientComponent } from './components/patient/patient.component';
 import { UpdateMedicineComponent } from './components/update-medicine/update-medicine.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
+import { CreateActiveSubstListComponent } from './components/create-active-subst-list/create-active-subst-list.component';
 
 
 
@@ -47,6 +48,7 @@ const routes: Routes = [
     AddMedicineComponent,
     PatientComponent,
     UpdateMedicineComponent,
+    CreateActiveSubstListComponent,
 
   ],
   imports: [
