@@ -20,6 +20,7 @@ export class AddMedicineComponent implements OnInit {
   medicine: Medicine | undefined;
 
   medicineForm: FormGroup;
+  myControl = new FormControl('');
 
   constructor(private fb: FormBuilder, private modalService: NgbModal) {
     this.medicineForm = this.fb.group({

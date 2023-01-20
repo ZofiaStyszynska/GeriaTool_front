@@ -26,8 +26,9 @@ import { PatientComponent } from './components/patient/patient.component';
 import { UpdateMedicineComponent } from './components/update-medicine/update-medicine.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CreateActiveSubstListComponent } from './components/create-active-subst-list/create-active-subst-list.component';
-
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 
 
@@ -65,7 +66,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     CommonModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatAutocompleteModule,
+    AutocompleteLibModule
   ],
   providers: [ActiveSubstanceService, MedicineService, DecimalPipe, AsyncPipe],
   bootstrap: [AppComponent]
